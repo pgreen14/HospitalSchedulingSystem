@@ -27,43 +27,38 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 		// start element
 		eventWriter.add(eventFactory.createStartElement("", "", NAME));
 		eventWriter.add(eventFactory.createIgnorableSpace("\n")); // line feed for readability
-		/*// first name
-		XMLWriterUtils.writeNode(eventFactory, eventWriter, FIRST_NAME, studentName.getFirstName(), level+1);
-		// last name
-		XMLWriterUtils.writeNode(eventFactory, eventWriter, LAST_NAME, studentName.getLastName(), level+1);
-		*/// end element
 		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level)); // also indent it
 		eventWriter.add(eventFactory.createEndElement("", "", NAME));
 		eventWriter.add(eventFactory.createIgnorableSpace("\n")); // line feed for readability
 	}
 
 	public static void writePatient(XMLEventFactory eventFactory, XMLEventWriter eventWriter, Patient e, int level) throws XMLStreamException {
-		// writes a single student through to the XML event writer
-		// create the student start element
+		// writes a single patient through to the XML event writer
+		// creating the patient start element
 		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level));
 		StartElement patientStart = eventFactory.createStartElement("", "", PATIENT);
 		eventWriter.add(patientStart);
-		// create the id attribute
+		// creating the id attribute
 		// note the use of Integer.toString to get a string representation
 		Attribute patientId = eventFactory.createAttribute(ID, Integer.toString(e.getPatientID()));
 		eventWriter.add(patientId);
-		// create the SSN attribute
+		// creating the SSN attribute
 		Attribute patientSSN = eventFactory.createAttribute(SSN, e.getSSN());
 		eventWriter.add(patientSSN);
 		eventWriter.add(eventFactory.createIgnorableSpace("\n")); // line feed for readability
-		// now create the nested elements
+		// now creating the nested elements
 		writeName(eventFactory, eventWriter, e.getName(), level);
 		XMLWriterUtils.writeNode(eventFactory, eventWriter, EMAIL, e.getEmail(), level + 1);
 		XMLWriterUtils.writeDate(eventFactory, eventWriter, DOB, e.getDob(), level + 1);
-		// create the student end element
+		// create the patient end element
 		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level));
 		EndElement patientEnd = eventFactory.createEndElement("", "", PATIENT);
 		eventWriter.add(patientEnd);
 	}
 	
 	public static void writeDoctor(XMLEventFactory eventFactory, XMLEventWriter eventWriter, Doctor e, int level) throws XMLStreamException {
-		// writes a single student through to the XML event writer
-		// create the student start element
+		// writes a single doctor through to the XML event writer
+		// create the doctor start element
 		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level));
 	    StartElement doctorStart = eventFactory.createStartElement("", "", DOCTOR);
 	    eventWriter.add(doctorStart);
@@ -79,7 +74,7 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 	    writeName(eventFactory, eventWriter, e.getName(), level);
 	    XMLWriterUtils.writeNode(eventFactory, eventWriter, EMAIL, e.getEmail(), level + 1);
 	    XMLWriterUtils.writeDate(eventFactory, eventWriter, DOB, e.getDob(), level + 1);
-	    // create the student end element
+	    // create the doctor end element
 		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level));
 	    EndElement doctorEnd = eventFactory.createEndElement("", "", DOCTOR);
 	    eventWriter.add(doctorEnd);
