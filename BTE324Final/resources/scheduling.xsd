@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/scheduling/" targetNamespace="http://www.example.org/scheduling/">
+    <element name="SchedulerData">
+    	<complexType>
+    		<sequence>
+    			<element name="PatientList" type="tns:Patient"
+    				maxOccurs="unbounded" minOccurs="0">
+    			</element>
+    			<element name="DoctorList" type="tns:Doctor"
+    				maxOccurs="unbounded" minOccurs="0">
+    			</element>
+    			<element name="VisitList" type="tns:Visit" maxOccurs="unbounded" minOccurs="0"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+
+    <complexType name="Doctor">
+    	<sequence>
+    		<element name="name" type="tns:Name" maxOccurs="1" minOccurs="1"></element>
+    		<element name="email" type="string" maxOccurs="1" minOccurs="0"></element>
+    		<element name="dob" type="date" maxOccurs="1" minOccurs="0"></element>
+    		<element name="specialty" type="tns:MedicalSpecialty" maxOccurs="1" minOccurs="0"></element>
+    	</sequence>
+    	<attribute name="doctorID" type="int"></attribute>
+    	<attribute name="ssn" type="string"></attribute>
+    </complexType>
+
+
+    <simpleType name="MedicalSpecialty">
+    	<restriction base="string">
+    		<enumeration value="GENERAL_MEDICINE"></enumeration>
+    		<enumeration value="PEDIATRICS"></enumeration>
+    		<enumeration value="ONCOLOGY"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="Patient">
+    	<sequence>
+    		<element name="email" type="string"></element>
+    		<element name="name" type="tns:Name"></element>
+    		<element name="dob" type="date"></element>
+    	</sequence>
+    	<attribute name="patientID" type="int"></attribute>
+    	<attribute name="ssn" type="string"></attribute>
+    </complexType>
+
+    <attribute name="NewAttribute" type="string"></attribute>
+
+
+
+
+    <complexType name="Name">
+    	<sequence>
+    		<element name="fname" type="string"></element>
+    		<element name="lname" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="Visit">
+    	<attribute name="patientID" type="int"></attribute>
+    	<attribute name="doctorID" type="int"></attribute>
+    	<attribute name="visitDate" type="date"></attribute>
+    </complexType>
+
+    <element name="patient" type="tns:Patient"></element>
+
+    <element name="doctor" type="tns:Doctor"></element>
+
+    <element name="visit" type="tns:Visit"></element>
+</schema>
