@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SchedulerData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org/scheduling/" xsi:schemaLocation="http://www.example.org/scheduling/ scheduling.xsd ">
+<SchedulerData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org/xml/scheduling/" xsi:schemaLocation="http://www.example.org/xml/scheduling/ scheduling.xsd ">
+		
 		<patient patientID="1" ssn="123-45-6789">
-		<email>jlennon@beatles.com</email>
-			<patientName>
+			<email>jlennon@beatles.com</email>
+			<name>
 				<fname>John</fname>
 				<lname>Lennon</lname>
-			</patientName>
+			</name>
 			<dob>1951-05-01</dob>
 		</patient>
-		<Patient id="2" ssn="333-22-1123">
-			<email>pmccartney@another.edu</email>
+		<Patient patientID="2" ssn="333-22-1123">
+			<email>paulmccartney@miami.edu</email>
+			<name>
+				<fname>Paul</fname>
+				<lname>McCartney</lname>
+			</name>
 			<dob>1964-06-23</dob>
-			<name>Paul McCartney</name>
-			</Patient>
-		<Patient id="3" ssn="567-39-9282">
+		</Patient>
+		<Patient patientID="3" ssn="567-39-9282">
 			<email>george@something.com</email>
+			<name>
+				<fname>George</fname>
+				<lname>Harrison</lname>
+			</name>
 			<dob>1955-09-05</dob>
-			<name>George Harrison</name>
 		</Patient>
-		<Patient id="4" ssn="888-88-8888">
+		<Patient patientID="4" ssn="888-88-8888">
 			<email>drummer@beatles.org</email>
+			<name>
+			<fname>Ringo</fname>
+			<lname>Starr</lname>
+			</name>
 			<dob>2001-02-28</dob>
-			<name>Ringo Starr</name>
 		</Patient>
 	
 	
-	<DoctorList>
+	<Doctor>
 		<Doctor id="1" ssn="445-25-3382">
 			<name>John Smith</name>
 			<email>jsmith@doc.com</email>
@@ -50,7 +60,7 @@
 			<dob>1964-07-19</dob>
 			<Specialty>ONCOLOGY</Specialty>
 		</Doctor>
-	</DoctorList>
+	</Doctor>
 	
 	<VisitList>
 		<Visit patientID="123-45-6789" visitDate="11 May 2017" doctorID="445-25-3382"></Visit>

@@ -3,13 +3,13 @@
     <element name="SchedulerData">
     	<complexType>
     		<sequence>
-    			<element name="PatientList" type="tns:Patient"
+    			<element name="patient" type="tns:Patient"
     				maxOccurs="unbounded" minOccurs="0">
     			</element>
-    			<element name="DoctorList" type="tns:Doctor"
+    			<element name="doctor" type="tns:Doctor"
     				maxOccurs="unbounded" minOccurs="0">
     			</element>
-    			<element name="VisitList" type="tns:Visit" maxOccurs="unbounded" minOccurs="0"></element>
+    			<element name="visit" type="tns:Visit" maxOccurs="unbounded" minOccurs="0"></element>
     		</sequence>
     	</complexType>
     </element>

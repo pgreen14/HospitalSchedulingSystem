@@ -21,7 +21,7 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 	private final static String SCHEMA_LOCATION_ATTRNAME = "schemaLocation";
 	private final static String SCHEMA_FILE_NAME = "scheduling.xsd";
 
-	public static void writeName(XMLEventFactory eventFactory, XMLEventWriter eventWriter, Name studentName, int level) throws XMLStreamException {
+	public static void writeName(XMLEventFactory eventFactory, XMLEventWriter eventWriter, Name name, int level) throws XMLStreamException {
 		// first, write as many tabs as levels needed
 		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level));
 		// start element
