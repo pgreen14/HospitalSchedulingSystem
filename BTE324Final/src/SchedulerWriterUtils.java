@@ -13,20 +13,25 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 
+
 public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 	
-	private final static String NAMESPACE = "http://www.example.org/scheduling/";
+	private final static String NAMESPACE = "http://SCHEDULER";
 	private final static String SCHEMA_INSTANCE_PREFIX = "xsi";
 	private final static String SCHEMA_INSTANCE_NS = "http://www.w3.org/2001/XMLSchema-instance";
 	private final static String SCHEMA_LOCATION_ATTRNAME = "schemaLocation";
 	private final static String SCHEMA_FILE_NAME = "scheduling.xsd";
 
-	public static void writeName(XMLEventFactory eventFactory, XMLEventWriter eventWriter, Name name, int level) throws XMLStreamException {
+	public static void writeName(XMLEventFactory eventFactory, XMLEventWriter eventWriter, String fname, String lname , int level) throws XMLStreamException {
 		// first, write as many tabs as levels needed
 		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level));
 		// start element
 		eventWriter.add(eventFactory.createStartElement("", "", NAME));
 		eventWriter.add(eventFactory.createIgnorableSpace("\n")); // line feed for readability
+		// first name
+		XMLWriterUtils.writeNode(eventFactory, eventWriter, "fname", fname, level + 1);
+				// last name
+		XMLWriterUtils.writeNode(eventFactory, eventWriter, "lname", lname, level + 1);
 		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level)); // also indent it
 		eventWriter.add(eventFactory.createEndElement("", "", NAME));
 		eventWriter.add(eventFactory.createIgnorableSpace("\n")); // line feed for readability
@@ -43,11 +48,11 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 		Attribute patientId = eventFactory.createAttribute(ID, Integer.toString(e.getPatientID()));
 		eventWriter.add(patientId);
 		// creating the SSN attribute
-		Attribute patientSSN = eventFactory.createAttribute(SSN, e.getSSN());
+		Attribute patientSSN = eventFactory.createAttribute(SSN, e.getSsn());
 		eventWriter.add(patientSSN);
 		eventWriter.add(eventFactory.createIgnorableSpace("\n")); // line feed for readability
 		// now creating the nested elements
-		writeName(eventFactory, eventWriter, e.getName(), level);
+		writeName(eventFactory, eventWriter, e.getFName(), e.getLName(), level);
 		XMLWriterUtils.writeNode(eventFactory, eventWriter, EMAIL, e.getEmail(), level + 1);
 		XMLWriterUtils.writeDate(eventFactory, eventWriter, DOB, e.getDob(), level + 1);
 		// create the patient end element
@@ -71,13 +76,28 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 	    eventWriter.add(doctorSSN);
 		eventWriter.add(eventFactory.createIgnorableSpace("\n")); // line feed for readability
 	    // now create the nested elements
-	    writeName(eventFactory, eventWriter, e.getName(), level);
+	    writeName(eventFactory, eventWriter, e.getFName(), e.getLName(), level);
 	    XMLWriterUtils.writeNode(eventFactory, eventWriter, EMAIL, e.getEmail(), level + 1);
 	    XMLWriterUtils.writeDate(eventFactory, eventWriter, DOB, e.getDob(), level + 1);
 	    // create the doctor end element
 		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level));
 	    EndElement doctorEnd = eventFactory.createEndElement("", "", DOCTOR);
 	    eventWriter.add(doctorEnd);
+	}
+	
+	public static void writeVisit(XMLEventFactory eventFactory, XMLEventWriter eventWriter, Visit<Integer, Integer> e,
+			int level) throws XMLStreamException {
+		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level));
+		StartElement visitStart = eventFactory.createStartElement("", "", "visit");
+		eventWriter.add(visitStart);
+		
+		Attribute patientID = eventFactory.createAttribute("patientID", Integer.toString(e.getVisitor()));
+		eventWriter.add(patientID);
+		
+		Attribute doctorID = eventFactory.createAttribute("doctorID", Integer.toString(e.getHost()));
+		eventWriter.add(doctorID);
+		
+		
 	}
 
 	public static void writeSchedulerData (String outFile, SchedulerData sdList) throws XMLStreamException, IOException {
@@ -118,10 +138,15 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 		  writeDoctor(eventFactory, eventWriter, e, 1);
 		  eventWriter.add(eventFactory.createIgnorableSpace("\n"));
 	  }
-	  
+	  for (Visit<Integer,Integer> e: sdList.v){
+		  writeVisit(eventFactory, eventWriter, e, 1);
+		  eventWriter.add(eventFactory.createIgnorableSpace("\n"));
+	  }
 	  eventWriter.add(eventFactory.createEndDocument());
 		eventWriter.close();
 	}
+
+	
 
 
 }

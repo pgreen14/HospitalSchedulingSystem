@@ -9,6 +9,7 @@ public class SchedulerData {
 	ArrayList<Patient> p = new ArrayList<Patient>();
 	ArrayList<Doctor> d = new ArrayList<Doctor>();
 	ArrayList<Visit<Integer,Integer>> v = new ArrayList<Visit<Integer,Integer>>();
+
 	
 	public SchedulerData(ArrayList<Patient> plist, ArrayList<Doctor> dlist, ArrayList<Visit<Integer,Integer>> vlist) {
 		// TODO Auto-generated constructor stub

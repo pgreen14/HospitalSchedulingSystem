@@ -7,8 +7,8 @@ public class SchedulerReadWriteUtils {
 	protected final static String ID = "id";
 	protected final static String SSN = "ssn";
 	protected final static String NAME = "name";
-	protected final static String FIRST_NAME = "fName";
-	protected final static String LAST_NAME = "lName";
+	protected final static String FIRST_NAME = "fname";
+	protected final static String LAST_NAME = "lname";
 	protected final static String EMAIL = "email";
 	protected final static String DOB = "dob";
 	protected final static String DOCTOR_LIST = "DoctorList";

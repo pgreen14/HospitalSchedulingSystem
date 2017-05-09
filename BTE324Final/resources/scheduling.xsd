@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/scheduling/" targetNamespace="http://www.example.org/scheduling/">
-    <element name="SchedulerData">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+xmlns:tns="http://SCHEDULER"
+targetNamespace="http://SCHEDULER"
+   elementFormDefault="qualified">
+    
+    <element name="schedulerList">
     	<complexType>
     		<sequence>
     			<element name="patient" type="tns:Patient"
@@ -14,16 +18,6 @@
     	</complexType>
     </element>
 
-    <complexType name="Doctor">
-    	<sequence>
-    		<element name="name" type="tns:Name" maxOccurs="1" minOccurs="1"></element>
-    		<element name="email" type="string" maxOccurs="1" minOccurs="0"></element>
-    		<element name="dob" type="date" maxOccurs="1" minOccurs="0"></element>
-    		<element name="specialty" type="tns:MedicalSpecialty" maxOccurs="1" minOccurs="0"></element>
-    	</sequence>
-    	<attribute name="doctorID" type="int"></attribute>
-    	<attribute name="ssn" type="string"></attribute>
-    </complexType>
 
 
     <simpleType name="MedicalSpecialty">
@@ -36,25 +30,19 @@
 
     <complexType name="Patient">
     	<sequence>
-    		<element name="email" type="string"></element>
-    		<element name="name" type="tns:Name"></element>
-    		<element name="dob" type="date"></element>
+            <element name="name" type="tns:Name"></element>
+            
+            <element name="email" type="string"></element>
+            <element name="dob" type="date"></element>
     	</sequence>
     	<attribute name="patientID" type="int"></attribute>
     	<attribute name="ssn" type="string"></attribute>
     </complexType>
 
-    <attribute name="NewAttribute" type="string"></attribute>
 
 
 
 
-    <complexType name="Name">
-    	<sequence>
-    		<element name="fname" type="string"></element>
-    		<element name="lname" type="string"></element>
-    	</sequence>
-    </complexType>
 
     <complexType name="Visit">
     	<attribute name="patientID" type="int"></attribute>
@@ -62,9 +50,25 @@
     	<attribute name="visitDate" type="date"></attribute>
     </complexType>
 
-    <element name="patient" type="tns:Patient"></element>
 
-    <element name="doctor" type="tns:Doctor"></element>
 
-    <element name="visit" type="tns:Visit"></element>
+
+    <complexType name="Name">
+    	<sequence>
+    		<element name="fname" type="string" maxOccurs="1" minOccurs="0"></element>
+    		<element name="lname" type="string" maxOccurs="1" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+
+    <complexType name="Doctor">
+    	<sequence>
+    		<element name="name" type="tns:Name" minOccurs="0" maxOccurs="1"></element>
+    		<element name="email" type="string"></element>
+    		<element name="dob" type="date"></element>
+    		<element name="specialty" type="tns:MedicalSpecialty"></element>
+    	</sequence>
+    	<attribute name="doctorID" type="int"></attribute>
+    	<attribute name="ssn" type="string"></attribute>
+    </complexType>
 </schema>

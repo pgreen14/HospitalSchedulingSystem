@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SchedulerData xmlns="http://SCHEDULER" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://SCHEDULER scheduling.xsd"
+>
+	<patient patientID="0" ssn="123-45-6789">
+		<name>
+			<fname>John</fname>
+			<lname>Lennon</lname>
+		</name>
+		<email>jlennon@beatles.com</email>
+		<dob>1951-05-01</dob>
+	</patient>
+	<doctor>
+		<name>
+			<fname>fname</fname>
+			<lname>lname</lname></name>
+		<email>email</email>
+		<dob>2001-01-01</dob>
+		<specialty>GENERAL_MEDICINE</specialty>
+	</doctor>
+	<visit patientID="0" doctorID="0" visitDate="2017-05-11" /></SchedulerData>

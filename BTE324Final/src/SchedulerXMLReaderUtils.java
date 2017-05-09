@@ -26,7 +26,7 @@ import javax.xml.stream.events.XMLEvent;
 
 public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 	
-	public static Name readName(XMLEventReader eventReader) throws XMLStreamException {
+	/*public static Name readName(XMLEventReader eventReader) throws XMLStreamException {
 		// enter this method at the startElement of name
 		// read until the endElement
 		// should be called right before reading the start element for name (use peek to make sure it is the right element)
@@ -40,7 +40,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 		}
 		Name name = null;
 		boolean finished = false;
-		String firstName = null, lastName = null;
+		String fname = null, lname = null;
 		while (!finished) {
 			XMLEvent event = eventReader.nextEvent();
 			// check the start elements for the nested elements inside NAME
@@ -48,11 +48,11 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 				StartElement startElement = event.asStartElement();
 				if (startElement.getName().getLocalPart().equals(FIRST_NAME)) {
 					event = eventReader.nextEvent();
-					firstName = event.asCharacters().getData();
+					fname = event.asCharacters().getData();
 				}
 				else if (startElement.getName().getLocalPart().equals(LAST_NAME)) {
 					event = eventReader.nextEvent();
-					lastName = event.asCharacters().getData();
+					lname = event.asCharacters().getData();
 				}
 				else {
 					System.err.println("Unrecognized element, ignoring: " + startElement.getName());
@@ -65,7 +65,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 				if (endElement.getName().getLocalPart().equals(NAME)) {
 					// Schema makes these required, so they must exist
 					// would be a good practice to check for existence anyways
-					name = new Name(firstName, lastName); 
+					name = new Name(fname, lname); 
 					finished = true;
 				}
 			}
@@ -76,7 +76,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 		return name;
 	}
 
-
+*/
 	//Patient Reader
 	private final static String DOB_FORMAT = "yyyy-MM-dd";
 	
@@ -106,8 +106,9 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 			}
 		}
 		
-		Patient patient = null;
-		Name name = null;
+		PatientImpl patient = null;
+		String fname = null;
+		String lname = null;
 		String email = null;
 		Date dob = null;
 		boolean finished = false;
@@ -117,7 +118,8 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 				StartElement startElement = event.asStartElement();
 				
 				if (startElement.getName().getLocalPart().equals(NAME)) {
-					name = readName(eventReader);
+					fname = readName(eventReader);
+					lname = readName(eventReader);
 				}
 				else if (startElement.getName().getLocalPart().equals(EMAIL)) {
 					email = XMLReaderUtils.readCharacters(eventReader, EMAIL);
@@ -137,7 +139,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 				
 				if (endElement.getName().getLocalPart().equals(PATIENT)) {
 					
-					patient = new Patient(patientID, name, ssn, dob, email);
+					patient = new PatientImpl(patientID, fname, lname, email, ssn, dob);
 					finished = true;
 				}
 			}
@@ -149,6 +151,11 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 		return patient;
 	}
 	
+	private static String readName(XMLEventReader eventReader) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	//Doctor Reader
 	public static Doctor readDoctor(XMLEventReader eventReader) throws XMLStreamException {
 		XMLEvent firstEvent = eventReader.nextEvent();
@@ -176,8 +183,9 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 			}
 		}
 		
-		Doctor doctor = null;
-		Name name = null;
+		DoctorImpl doctor = null;
+		String fname = null;
+		String lname = null;
 		String email = null;
 		Date dob = null;
 		MedicalSpecialty specialty = null;
@@ -187,7 +195,8 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 			if (event.isStartElement()) {
 				StartElement startElement = event.asStartElement();
 				if (startElement.getName().getLocalPart().equals(NAME)) {
-					name = readName(eventReader);
+					fname = readName(eventReader);
+					lname = readName(eventReader);
 				}
 				else if (startElement.getName().getLocalPart().equals(EMAIL)) {
 					email = XMLReaderUtils.readCharacters(eventReader, EMAIL);
@@ -210,7 +219,8 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 				EndElement endElement = event.asEndElement();
 				
 				if (endElement.getName().getLocalPart().equals(DOCTOR)) {
-					doctor = new Doctor(doctorID, name, email, ssn, dob, specialty);
+					doctor = new DoctorImpl(doctorID, fname, lname, email, ssn, dob, specialty);
+					
 					finished = true;
 				}
 			}
@@ -269,7 +279,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 					event = eventReader.nextEvent();
 					EndElement endElement = event.asEndElement();
 					if (endElement.getName().getLocalPart().equals("visit")){
-						visit = new Visit<Integer,Integer>(patientId, doctorId, visitDate);
+						visit = new VisitImpl<Integer,Integer>(patientId, doctorId, visitDate);
 						finished = true;
 					}
 				}
