@@ -38,8 +38,9 @@ public class XMLWriterUtils {
 	public static void writeDate(XMLEventFactory eventFactory, XMLEventWriter eventWriter, String name, Date date, int level) throws XMLStreamException {
 		// write the date in the specific date format required by XML Schema
 		DateFormat df = new SimpleDateFormat(); // ignored time zones for simplicity
-		String dateStr = df.format(date.getTime());
+		String dateStr = df.format(date);
 		writeNode(eventFactory, eventWriter, name, dateStr, level);
 	}
-
+	
 }
+	

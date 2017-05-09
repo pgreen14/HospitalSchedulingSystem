@@ -1,74 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" 
-xmlns:tns="http://SCHEDULER"
-targetNamespace="http://SCHEDULER"
-   elementFormDefault="qualified">
+<xs:schema 
+	targetNamespace="http://SCHEDULER"
+   	elementFormDefault="qualified"
+ 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ 	   xmlns="http://SCHEDULER" >
     
-    <element name="schedulerList">
-    	<complexType>
-    		<sequence>
-    			<element name="patient" type="tns:Patient"
+    <xs:element name="schedulerList">
+    	<xs:complexType>
+    		<xs:sequence>
+    			<xs:element name="patient" type="Patient"
     				maxOccurs="unbounded" minOccurs="0">
-    			</element>
-    			<element name="doctor" type="tns:Doctor"
-    				maxOccurs="unbounded" minOccurs="0">
-    			</element>
-    			<element name="visit" type="tns:Visit" maxOccurs="unbounded" minOccurs="0"></element>
-    		</sequence>
-    	</complexType>
-    </element>
+    			</xs:element>
+                <xs:element name="doctor" type="Doctor" maxOccurs="unbounded" minOccurs="0">
+    			</xs:element>
+                <xs:element name="visit" type="Visit"
+                	maxOccurs="unbounded" minOccurs="0">
+                </xs:element>
+    		</xs:sequence>
+    	</xs:complexType>
+    </xs:element>
 
 
 
-    <simpleType name="MedicalSpecialty">
-    	<restriction base="string">
-    		<enumeration value="GENERAL_MEDICINE"></enumeration>
-    		<enumeration value="PEDIATRICS"></enumeration>
-    		<enumeration value="ONCOLOGY"></enumeration>
-    	</restriction>
-    </simpleType>
+    <xs:simpleType name="MedicalSpecialty">
+    	<xs:restriction base="xs:string">
+    		<xs:enumeration value="GENERAL_MEDICINE"></xs:enumeration>
+    		<xs:enumeration value="PEDIATRICS"></xs:enumeration>
+    		<xs:enumeration value="ONCOLOGY"></xs:enumeration>
+    	</xs:restriction>
+    </xs:simpleType>
 
-    <complexType name="Patient">
-    	<sequence>
-            <element name="name" type="tns:Name"></element>
-            
-            <element name="email" type="string"></element>
-            <element name="dob" type="date"></element>
-    	</sequence>
-    	<attribute name="patientID" type="int"></attribute>
-    	<attribute name="ssn" type="string"></attribute>
-    </complexType>
+    <xs:complexType name="Patient">
+    	<xs:sequence>
+            <xs:element name="name" type="Name"></xs:element>
 
+            <xs:element name="email" type="xs:string"></xs:element>
+            <xs:element name="dob" type="xs:date"></xs:element>
+    	</xs:sequence>
+    	<xs:attribute name="patientID" type="xs:int"></xs:attribute>
+    	<xs:attribute name="ssn" type="xs:string"></xs:attribute>
+    </xs:complexType>
 
-
-
-
-
-    <complexType name="Visit">
-    	<attribute name="patientID" type="int"></attribute>
-    	<attribute name="doctorID" type="int"></attribute>
-    	<attribute name="visitDate" type="date"></attribute>
-    </complexType>
+    <xs:complexType name="Visit">
+    	<xs:attribute name="patientID" type="xs:int"></xs:attribute>
+    	<xs:attribute name="doctorID" type="xs:int"></xs:attribute>
+    	<xs:attribute name="visitDate" type="xs:date"></xs:attribute>
+    </xs:complexType>
 
 
 
 
-    <complexType name="Name">
-    	<sequence>
-    		<element name="fname" type="string" maxOccurs="1" minOccurs="0"></element>
-    		<element name="lname" type="string" maxOccurs="1" minOccurs="0"></element>
-    	</sequence>
-    </complexType>
+    <xs:complexType name="Name">
+    	<xs:sequence>
+    		<xs:element name="fname" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
+    		<xs:element name="lname" type="xs:string" maxOccurs="1" minOccurs="0"></xs:element>
+    	</xs:sequence>
+    </xs:complexType>
 
 
-    <complexType name="Doctor">
-    	<sequence>
-    		<element name="name" type="tns:Name" minOccurs="0" maxOccurs="1"></element>
-    		<element name="email" type="string"></element>
-    		<element name="dob" type="date"></element>
-    		<element name="specialty" type="tns:MedicalSpecialty"></element>
-    	</sequence>
-    	<attribute name="doctorID" type="int"></attribute>
-    	<attribute name="ssn" type="string"></attribute>
-    </complexType>
-</schema>
+    <xs:complexType name="Doctor">
+    	<xs:sequence>
+    		<xs:element name="name" type="Name" minOccurs="0"
+    			maxOccurs="1">
+    		</xs:element>
+    		<xs:element name="email" type="xs:string"></xs:element>
+    		<xs:element name="dob" type="xs:date"></xs:element>
+    		<xs:element name="specialty" type="MedicalSpecialty"></xs:element>
+    	</xs:sequence>
+    	<xs:attribute name="doctorID" type="xs:int"></xs:attribute>
+    	<xs:attribute name="ssn" type="xs:string"></xs:attribute>
+    </xs:complexType>
+</xs:schema>

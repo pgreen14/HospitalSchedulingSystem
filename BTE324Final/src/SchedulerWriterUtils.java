@@ -4,6 +4,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+
 import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLOutputFactory;
@@ -29,9 +31,9 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 		eventWriter.add(eventFactory.createStartElement("", "", NAME));
 		eventWriter.add(eventFactory.createIgnorableSpace("\n")); // line feed for readability
 		// first name
-		XMLWriterUtils.writeNode(eventFactory, eventWriter, "fname", fname, level + 1);
+		XMLWriterUtils.writeNode(eventFactory, eventWriter, FIRST_NAME, fname, level + 1);
 				// last name
-		XMLWriterUtils.writeNode(eventFactory, eventWriter, "lname", lname, level + 1);
+		XMLWriterUtils.writeNode(eventFactory, eventWriter, LAST_NAME, lname, level + 1);
 		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level)); // also indent it
 		eventWriter.add(eventFactory.createEndElement("", "", NAME));
 		eventWriter.add(eventFactory.createIgnorableSpace("\n")); // line feed for readability
@@ -45,8 +47,8 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 		eventWriter.add(patientStart);
 		// creating the id attribute
 		// note the use of Integer.toString to get a string representation
-		Attribute patientId = eventFactory.createAttribute(ID, Integer.toString(e.getPatientID()));
-		eventWriter.add(patientId);
+		Attribute patientID = eventFactory.createAttribute(PATIENTID, Integer.toString(e.getPatientID()));
+		eventWriter.add(patientID);
 		// creating the SSN attribute
 		Attribute patientSSN = eventFactory.createAttribute(SSN, e.getSsn());
 		eventWriter.add(patientSSN);
@@ -69,8 +71,8 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 	    eventWriter.add(doctorStart);
 	    // create the id attribute
 	    // note the use of Integer.toString to get a string representation
-	    Attribute doctorId = eventFactory.createAttribute(ID, Integer.toString(e.getDoctorID()));
-	    eventWriter.add(doctorId);
+	    Attribute doctorID = eventFactory.createAttribute(DOCTORID, Integer.toString(e.getDoctorID()));
+	    eventWriter.add(doctorID);
 	    // create the SSN attribute
 	    Attribute doctorSSN = eventFactory.createAttribute(SSN, e.getSsn());
 	    eventWriter.add(doctorSSN);
@@ -88,17 +90,24 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 	public static void writeVisit(XMLEventFactory eventFactory, XMLEventWriter eventWriter, Visit<Integer, Integer> e,
 			int level) throws XMLStreamException {
 		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level));
-		StartElement visitStart = eventFactory.createStartElement("", "", "visit");
+		StartElement visitStart = eventFactory.createStartElement("", "", VISIT);
 		eventWriter.add(visitStart);
 		
-		Attribute patientID = eventFactory.createAttribute("patientID", Integer.toString(e.getVisitor()));
+		Attribute patientID = eventFactory.createAttribute(PATIENTID, Integer.toString(e.getVisitor()));
 		eventWriter.add(patientID);
 		
-		Attribute doctorID = eventFactory.createAttribute("doctorID", Integer.toString(e.getHost()));
+		Attribute doctorID = eventFactory.createAttribute(DOCTORID, Integer.toString(e.getHost()));
 		eventWriter.add(doctorID);
+		
+		XMLWriterUtils.writeDate(eventFactory, eventWriter, DATE, e.getVisitDate(), level + 1);
+		
+		eventWriter.add(XMLWriterUtils.getIndentation(eventFactory, level));
+	    EndElement visitEnd = eventFactory.createEndElement("", "", VISIT);
+	    eventWriter.add(visitEnd);
 		
 		
 	}
+	
 
 	public static void writeSchedulerData (String outFile, SchedulerData sdList) throws XMLStreamException, IOException {
 	    // Create a XMLOutputFactory
@@ -127,8 +136,6 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 	 		eventWriter.add(eventFactory.createAttribute(SCHEMA_INSTANCE_PREFIX, 
 	 				SCHEMA_INSTANCE_NS, SCHEMA_LOCATION_ATTRNAME, schemaLocationArg));
 	 		// iterate over the list of students and create an element for each
-	 	
-
 	  for (Patient e : sdList.p) {
 			writePatient(eventFactory, eventWriter, e, 1); // write the student with one level of indentation
 		    eventWriter.add(eventFactory.createIgnorableSpace("\n"));
@@ -145,6 +152,8 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 	  eventWriter.add(eventFactory.createEndDocument());
 		eventWriter.close();
 	}
+
+	
 
 	
 

@@ -95,7 +95,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 		Iterator<Attribute> attributes = firstEvent.asStartElement().getAttributes();
 		while (attributes.hasNext()) {
 			Attribute attribute = attributes.next();
-			if (attribute.getName().getLocalPart().equals(ID)) {
+			if (attribute.getName().getLocalPart().equals(PATIENTID)) {
 				patientID = Integer.valueOf(attribute.getValue()); // we know it is an integer from the schema
 			}
 			else if (attribute.getName().getLocalPart().equals(SSN)) {
@@ -172,7 +172,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 		Iterator<Attribute> attributes = firstEvent.asStartElement().getAttributes();
 		while (attributes.hasNext()) {
 			Attribute attribute = attributes.next();
-			if (attribute.getName().getLocalPart().equals(ID)) {
+			if (attribute.getName().getLocalPart().equals(DOCTORID)) {
 				doctorID = Integer.valueOf(attribute.getValue()); // we know it is an integer from the schema
 			}
 			else if (attribute.getName().getLocalPart().equals(SSN)) {

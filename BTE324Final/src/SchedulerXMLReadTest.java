@@ -30,6 +30,7 @@ public class SchedulerXMLReadTest {
 		
 		
 		
+		
 		SchedulerWriterUtils.writeSchedulerData(OUTPUT_FILE, sdList);
 	}
 
