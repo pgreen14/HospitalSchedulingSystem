@@ -59,18 +59,6 @@ public class GUIFrame {
 		lblPatientSchedulingSystem.setBounds(89, 11, 261, 23);
 		frame.getContentPane().add(lblPatientSchedulingSystem);
 		
-		JButton btnNewDoctor = new JButton("Doctors");
-		btnNewDoctor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DoctorInfoFrame newFrame = new DoctorInfoFrame();
-				newFrame.setVisible(true);
-				
-			}
-		});
-		btnNewDoctor.setForeground(Color.BLACK);
-		btnNewDoctor.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnNewDoctor.setBounds(99, 150, 251, 23);
-		frame.getContentPane().add(btnNewDoctor);
 		
 		JButton btnScheduleVisit = new JButton("Schedule Visit");
 		btnScheduleVisit.addActionListener(new ActionListener() {
@@ -85,7 +73,7 @@ public class GUIFrame {
 		btnScheduleVisit.setBounds(99, 56, 251, 23);
 		frame.getContentPane().add(btnScheduleVisit);
 		
-		JButton btnPatients = new JButton("Patient Information");
+		JButton btnPatients = new JButton("Patient Information (Click this)");
 		btnPatients.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PatientInfoFrame newFrame = new PatientInfoFrame();
@@ -96,5 +84,18 @@ public class GUIFrame {
 		btnPatients.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnPatients.setBounds(99, 105, 251, 23);
 		frame.getContentPane().add(btnPatients);
+		
+		JButton btnNewDoctor = new JButton("Doctor Information");
+		btnNewDoctor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DoctorInfoFrame newFrame = new DoctorInfoFrame();
+				newFrame.setVisible(true);
+				
+			}
+		});
+		btnNewDoctor.setForeground(Color.BLACK);
+		btnNewDoctor.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewDoctor.setBounds(99, 150, 251, 23);
+		frame.getContentPane().add(btnNewDoctor);
 	}
 }

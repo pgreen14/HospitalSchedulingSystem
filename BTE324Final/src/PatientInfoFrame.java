@@ -84,26 +84,8 @@ public class PatientInfoFrame extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnNewButton.setBounds(20, 39, 146, 23);
 		contentPane.add(btnNewButton);
-/*
-//		====================================================
-//		Button: Restore a Patient
-//		====================================================
-		JButton btnRestoreAPatient = new JButton("Restore a Patient");
-		btnRestoreAPatient.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				RestorePatientFrame newFrame = new RestorePatientFrame();
-				newFrame.setVisible(true);
-			}
-		});
-		btnRestoreAPatient.setForeground(Color.BLACK);
-		btnRestoreAPatient.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRestoreAPatient.setBounds(454, 39, 146, 23);
-		contentPane.add(btnRestoreAPatient);
 		
-		*/
-//		====================================================
-//		Labels
-//		====================================================		
+//Creates the labels	
 		JLabel lblCurrentPatients = new JLabel("Current Patients");
 		lblCurrentPatients.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCurrentPatients.setBounds(20, 341, 122, 14);
@@ -145,11 +127,10 @@ public class PatientInfoFrame extends JFrame {
 		
 		String col[] = {"Patient Id", "First Name", "Last Name", "Email", "SSN", "Birthdate"};
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);		
-		
+
+//Adds the combo box
 		try {
-//			====================================================
-//			Combo Box
-//			====================================================			
+			
 			JComboBox<String> comboBox = new JComboBox<String>();
 			
 			comboBox.setBounds(169, 340, 230, 20);
@@ -160,50 +141,37 @@ public class PatientInfoFrame extends JFrame {
 				comboBox.addItem(patients.getFName() + " "+ patients.getLName());
 				
 			}
-
+			
+//Gets selected item in combo box
 			comboBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				String s = (String) comboBox.getSelectedItem();
 				
-				// Loop through patientList
+// Loops through list of patients
 				for (Patient patients:schedule.p)
 					if (s.equals(patients.getFName()+ " "+ patients.getLName())){
 
-						//Format the date
+//Date Formaatter
 						DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // ignore time zones for simplicity
 						String dateStr = df.format(patients.getDob());
 						
-						// Fill default textFields when a name is selected
+// Fills the text fields with desired name
 						txtfirstName.setText(patients.getFName());
 						txtlastName.setText(patients.getLName());
 						txtEmail.setText(patients.getEmail());
 						txtssn.setText(patients.getSsn());
 						txtdob.setText(dateStr);
 						
-//						====================================================
-//						Update Patient Information
-//						====================================================
+//Update Patient Info (only updates the first name)
 						btnUpdate.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								for (int k = 0; k<schedule.getPatientList().size(); k++){
 								if(comboBox.getSelectedItem().equals("Patient"))
 								{
 								txtfirstName.setText(schedule.getPatientList().get(k).getFName());
-								//patients.setLName(txtlastName.getText());
-								//patients.setLName(txtlastName.getText());
-								//patients.setSsn(txtssn.getText());
-								//String dobnewStr = txtdob.getText();
+				
 								}
-								}
-								/*Date dobnew = null;
-								
-								DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-								try {
-									dobnew = (Date)df.parse(dobnewStr);
-								} catch (ParseException e1) {
-									e1.printStackTrace();
-								}
-								patients.setDob(dobnew);*/
+							
 								
 								try {
 									SchedulerWriterUtils.writeSchedulerData(INPUT_FILE, schedule);
@@ -217,22 +185,19 @@ public class PatientInfoFrame extends JFrame {
 									e1.printStackTrace();
 								}
 							}
+							}
 						});
-					
+						}
 						
 					}
 					}
-				}
+				
 				);
 			contentPane.add(comboBox);
-			//contentPane.add(btnRemove);
 			contentPane.add(btnUpdate);
 			
 			
-
-//			====================================================
-//			Fill the table with Patient Data
-//			====================================================
+//Fills table with patient's info
 				for (Patient patients: schedule.p){
 					if(!patients.getSsn().equals(null)){
 						{
@@ -241,7 +206,7 @@ public class PatientInfoFrame extends JFrame {
 						String lname = patients.getLName();
 						String email = patients.getEmail();
 						String ssn = patients.getSsn();
-						//Format the date
+//Date Formatter
 						DateFormat df = new SimpleDateFormat("MMM-dd-YYYY"); // ignore time zones for simplicity
 						String dateStr = df.format(patients.getDob());
 						
