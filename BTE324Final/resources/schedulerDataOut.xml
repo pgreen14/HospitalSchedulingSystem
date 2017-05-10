@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schedulerList xmlns="http://SCHEDULER" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://SCHEDULER scheduling.xsd">
-	<patient patientID="0" ssn="123-45-6789">
+<schedulerList xmlns="http://SCHEDULER" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://SCHEDULER scheduling.xsd">	<patient patientID="0" ssn="123-45-6789">
 	<name>
 		<fname>John</fname>
 		<lname>Lennon</lname>
@@ -48,30 +47,14 @@
 		<email>jdoe@doc.com</email>
 		<dob>1950-10-10</dob>
 	</doctor>
-	<doctor doctorID="2" ssn="180-38-0038">
+	<doctor doctorID="0" ssn="">
 	<name>
-		<fname>Mary</fname>
-		<lname>Jones</lname>
+		<fname></fname>
+		<lname></lname>
 	</name>
-		<email>mjones@doc.com</email>
-		<dob>1965-12-25</dob>
-	</doctor>
-	<doctor doctorID="3" ssn="343-34-9875">
-	<name>
-		<fname>Beth</fname>
-		<lname>Garcia</lname>
-	</name>
-		<email>bgarcia@doc.com</email>
-		<dob>1964-07-19</dob>
+		<email>email</email>
+		<dob>2001-01-01</dob>
 	</doctor>
 	<visit patientID="0" doctorID="0">		<visitDate>2017-05-11</visitDate>
-	</visit>
-	<visit patientID="0" doctorID="0">		<visitDate>2017-04-11</visitDate>
-	</visit>
-	<visit patientID="3" doctorID="1">		<visitDate>2017-03-25</visitDate>
-	</visit>
-	<visit patientID="1" doctorID="2">		<visitDate>2017-05-27</visitDate>
-	</visit>
-	<visit patientID="2" doctorID="3">		<visitDate>2017-06-01</visitDate>
 	</visit>
 </schedulerList>

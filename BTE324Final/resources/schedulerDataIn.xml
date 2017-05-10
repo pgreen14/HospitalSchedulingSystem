@@ -1,60 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schedulerList xmlns="http://SCHEDULER" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://SCHEDULER scheduling.xsd">	<patient patientID="0" ssn="123-45-6789">
-	<name>
-		<fname>John</fname>
-		<lname>Lennon</lname>
-	</name>
+<schedulerList xmlns="http://SCHEDULER" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xsi:schemaLocation="http://SCHEDULER scheduling.xsd"
+>
+	<patient patientID="0" ssn="123-45-6789">
+		<name>
+			<fname>John</fname>
+			<lname>Lennon</lname>
+		</name>
 		<email>jlennon@beatles.com</email>
 		<dob>1951-05-01</dob>
 	</patient>
 	<patient patientID="1" ssn="333-22-1123">
-	<name>
-		<fname>Paul</fname>
-		<lname>McCartney</lname>
-	</name>
+		<name>
+			<fname>Paul</fname>
+			<lname>McCartney</lname>
+		</name>
 		<email>paulmccartney@miami.edu</email>
 		<dob>2001-01-01</dob>
 	</patient>
 	<patient patientID="2" ssn="567-39-9282">
-	<name>
-		<fname>George</fname>
-		<lname>Harrison</lname>
-	</name>
+		<name>
+			<fname>George</fname>
+			<lname>Harrison</lname></name>
 		<email>george@something.com</email>
 		<dob>1955-09-05</dob>
 	</patient>
 	<patient patientID="3" ssn="888-88-8888">
-	<name>
-		<fname>Ringo</fname>
-		<lname>Starr</lname>
-	</name>
+		<name>
+			<fname>Ringo</fname>
+			<lname>Starr</lname></name>
 		<email>drummer@beatles.org</email>
 		<dob>2001-02-28</dob>
 	</patient>
 	<doctor doctorID="0" ssn="445-25-3382">
-	<name>
-		<fname>John</fname>
-		<lname>Smith</lname>
-	</name>
+		<name>
+			<fname>John</fname>
+			<lname>Smith</lname>
+		</name>
 		<email>jsmith@doc.com</email>
 		<dob>1941-06-03</dob>
+		<specialty>GENERAL_MEDICINE</specialty>
 	</doctor>
 	<doctor doctorID="1" ssn="582-10-9983">
-	<name>
-		<fname>Jane</fname>
-		<lname>Doe</lname>
-	</name>
+		<name>
+			<fname>Jane</fname>
+			<lname>Doe</lname></name>
 		<email>jdoe@doc.com</email>
 		<dob>1950-10-10</dob>
+		<specialty>PEDIATRICS</specialty>
 	</doctor>
-	<doctor doctorID="3" ssn="343-34-9875">
-	<name>
-		<fname>Beth</fname>
-		<lname>Garcia</lname>
-	</name>
-		<email>bgarcia@doc.com</email>
-		<dob>1964-07-19</dob>
+	<doctor doctorID="0" ssn="">
+		<name></name>
+		<email>email</email>
+		<dob>2001-01-01</dob>
+		<specialty>GENERAL_MEDICINE</specialty>
 	</doctor>
-	<visit patientID="0" doctorID="0">		<visitDate>2017-05-11</visitDate>
-	</visit>
-</schedulerList>
+	<visit patientID="0" doctorID="0" visitDate="2017-05-11" />
+	
+	</schedulerList>
