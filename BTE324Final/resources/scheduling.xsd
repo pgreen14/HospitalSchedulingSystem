@@ -37,14 +37,14 @@
             <xs:element name="email" type="xs:string"></xs:element>
             <xs:element name="dob" type="xs:date"></xs:element>
     	</xs:sequence>
-    	<xs:attribute name="patientID" type="xs:int"></xs:attribute>
-    	<xs:attribute name="ssn" type="xs:string"></xs:attribute>
+    	<xs:attribute name="patientID" type="xs:int" use="required"></xs:attribute>
+    	<xs:attribute name="ssn" type="xs:string" use="required"></xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="Visit">
-    	<xs:attribute name="patientID" type="xs:int"></xs:attribute>
-    	<xs:attribute name="doctorID" type="xs:int"></xs:attribute>
-    	<xs:attribute name="visitDate" type="xs:date"></xs:attribute>
+    	<xs:attribute name="patientID" type="xs:int" use="required"></xs:attribute>
+    	<xs:attribute name="doctorID" type="xs:int" use="required"></xs:attribute>
+    	<xs:attribute name="visitDate" type="xs:date" use="required"></xs:attribute>
     </xs:complexType>
 
 
@@ -67,7 +67,7 @@
     		<xs:element name="dob" type="xs:date"></xs:element>
     		<xs:element name="specialty" type="MedicalSpecialty"></xs:element>
     	</xs:sequence>
-    	<xs:attribute name="doctorID" type="xs:int"></xs:attribute>
-    	<xs:attribute name="ssn" type="xs:string"></xs:attribute>
+    	<xs:attribute name="doctorID" type="xs:int" use="required"></xs:attribute>
+    	<xs:attribute name="ssn" type="xs:string" use="required"></xs:attribute>
     </xs:complexType>
 </xs:schema>
