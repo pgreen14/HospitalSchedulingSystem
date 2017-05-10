@@ -6,6 +6,7 @@ public final class PatientImpl implements Patient {
 	int patientID;
 	String lname;
 	String fname;
+	String email;
 	String ssn;
 	Date dob;
 
@@ -14,6 +15,7 @@ public final class PatientImpl implements Patient {
 		this.patientID = patientID;
 		this.fname = fname;
 		this.lname= lname;
+		this.email = email;
 		this.ssn = ssn;
 		this.dob = dob;
 	}
@@ -35,7 +37,7 @@ public final class PatientImpl implements Patient {
 	@Override
 	public String getEmail() {
 		// TODO Auto-generated method stub
-		return null;
+		return email;
 	}
 	
 	@Override
@@ -58,31 +60,35 @@ public final class PatientImpl implements Patient {
 			return false;
 		}
 		
-		Patient p = (Patient) other;
-			return (this.patientID == p.getPatientID())&& (this.lname != null&&lname.equals(p.getLName()) &&(this.fname!= null&&fname.equals(p.getFName())&&(this.ssn != null && this.ssn==p.getSsn())&& (this.dob != null && this.dob==p.getDob())));
+		Patient p1 = (Patient) other;
+			return (this.patientID == p1.getPatientID())&& (this.lname != null&&lname.equals(p1.getLName()) &&(this.fname!= null&&fname.equals(p1.getFName())&&(this.ssn != null && this.ssn==p1.getSsn())&& (this.dob != null && this.dob==p1.getDob())));
 			}
 	
 	@Override 
 	public int hashCode(){
-		int result = 0;
+		int result = 3;
 		result = 31*result + patientID;
 		result = 31*result + (this.fname != null ? this.fname.hashCode() : 0);
 		result = 31*result + (this.lname != null ? this.lname.hashCode() : 0);
+		result = 31*result + (this.email != null ? this.email.hashCode() : 0 );
 		result = 31*result + (this.ssn != null ? this.ssn.hashCode() : 0);
 		result = 31*result + (this.dob != null ? this.dob.hashCode() : 0);
 		return result;
 		
 	}
-	
+	@Override
 	public void setSsn(String ssn) {
-		this.ssn = ssn;
+	
 	}
+	
+	@Override
 	public void setDob(Date dob) {
-		this.dob = dob;
+	
 	}
 	@Override
 	public void setPatientID(int patientID) {
 		// TODO Auto-generated method stub
+	
 		
 	}
 	@Override

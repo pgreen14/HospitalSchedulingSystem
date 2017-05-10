@@ -33,11 +33,11 @@ public class XMLWriterUtils {
 		// line feed
 		eventWriter.add(eventFactory.createIgnorableSpace("\n"));
 	}
-	public static String xmlStandardDateFormat = "MM/dd/YYYY"; // ignore time zones for simplicity
+	//public static String xmlStandardDateFormat = "MM/dd/YYYY"; // ignore time zones for simplicity
 
 	public static void writeDate(XMLEventFactory eventFactory, XMLEventWriter eventWriter, String name, Date date, int level) throws XMLStreamException {
 		// write the date in the specific date format required by XML Schema
-		DateFormat df = new SimpleDateFormat(); // ignored time zones for simplicity
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // ignored time zones for simplicity
 		String dateStr = df.format(date);
 		writeNode(eventFactory, eventWriter, name, dateStr, level);
 	}

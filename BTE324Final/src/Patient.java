@@ -16,8 +16,7 @@ public interface Patient {
 	void setEmail(String email);
 	void setSsn(String ssn);
 	void setDob(Date dob);
-	
-	
+
 
 	
 

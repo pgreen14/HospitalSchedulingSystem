@@ -2,13 +2,11 @@ import java.util.ArrayList;
 
 public class SchedulerData {
 	
-	//Patient pdata;
-	//Doctor ddata;
-	//Visit vdata;
 	
 	ArrayList<Patient> p = new ArrayList<Patient>();
 	ArrayList<Doctor> d = new ArrayList<Doctor>();
 	ArrayList<Visit<Integer,Integer>> v = new ArrayList<Visit<Integer,Integer>>();
+	
 
 	
 	public SchedulerData(ArrayList<Patient> plist, ArrayList<Doctor> dlist, ArrayList<Visit<Integer,Integer>> vlist) {
@@ -28,7 +26,7 @@ public class SchedulerData {
 		return d;
 	}
 	
-	public ArrayList<Visit<Integer,Integer>> getVisitList (){
+	public ArrayList<Visit<Integer,Integer>> getVisitList(){
 		
 		return v;
 	}

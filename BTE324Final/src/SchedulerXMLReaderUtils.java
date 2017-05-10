@@ -24,60 +24,13 @@ import javax.xml.stream.events.XMLEvent;
 
 
 
-public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
-	
-	/*public static Name readName(XMLEventReader eventReader) throws XMLStreamException {
-		// enter this method at the startElement of name
-		// read until the endElement
-		// should be called right before reading the start element for name (use peek to make sure it is the right element)
-		XMLEvent firstEvent = eventReader.nextEvent(); // gets the next event
-		// first make sure that the current event is the start element of name
-		if (!firstEvent.isStartElement()) {
-			throw new IllegalStateException("Attempting to read a name but not a start element: found event of type " + firstEvent.getEventType());
-		}
-		else if (!firstEvent.asStartElement().getName().getLocalPart().equals(NAME)) {
-			throw new IllegalStateException("Attempting to read a name at the wrong start element: found " + firstEvent.asStartElement().getName());
-		}
-		Name name = null;
-		boolean finished = false;
-		String fname = null, lname = null;
-		while (!finished) {
-			XMLEvent event = eventReader.nextEvent();
-			// check the start elements for the nested elements inside NAME
-			if (event.isStartElement()) {
-				StartElement startElement = event.asStartElement();
-				if (startElement.getName().getLocalPart().equals(FIRST_NAME)) {
-					event = eventReader.nextEvent();
-					fname = event.asCharacters().getData();
-				}
-				else if (startElement.getName().getLocalPart().equals(LAST_NAME)) {
-					event = eventReader.nextEvent();
-					lname = event.asCharacters().getData();
-				}
-				else {
-					System.err.println("Unrecognized element, ignoring: " + startElement.getName());
-				}
-			}
-			// check the end elements to find where the name element is closed
-			else if (event.isEndElement()) {
-				EndElement endElement = event.asEndElement();
-				// when the end element is the name element, create the name return object;
-				if (endElement.getName().getLocalPart().equals(NAME)) {
-					// Schema makes these required, so they must exist
-					// would be a good practice to check for existence anyways
-					name = new Name(fname, lname); 
-					finished = true;
-				}
-			}
-			else {
-				// ignore other events, such as character events with line feeds and tabs
-			}
-		}
-		return name;
-	}
 
-*/
+
+public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
+
+
 	//Patient Reader
+
 	private final static String DOB_FORMAT = "yyyy-MM-dd";
 	
 	public static Patient readPatient(XMLEventReader eventReader) throws XMLStreamException {
@@ -106,7 +59,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 			}
 		}
 		
-		PatientImpl patient = null;
+		Patient p = null;
 		String fname = null;
 		String lname = null;
 		String email = null;
@@ -116,10 +69,51 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 			XMLEvent event = eventReader.peek();
 			if (event.isStartElement()) {
 				StartElement startElement = event.asStartElement();
-				
+	
+			//Name Element within Patient
 				if (startElement.getName().getLocalPart().equals(NAME)) {
-					fname = readName(eventReader);
-					lname = readName(eventReader);
+					XMLEvent firstNameEvent = eventReader.nextEvent();
+					if (!firstNameEvent.isStartElement()) {
+						throw new IllegalStateException("Attempting to read a name but not a start element: found event of type " + firstNameEvent.getEventType());
+					}
+					else if (!firstNameEvent.asStartElement().getName().getLocalPart().equals(NAME)) {
+						throw new IllegalStateException("Attempting to read a name at the wrong start element: found " + firstEvent.asStartElement().getName());
+					}
+					boolean finishedName = false;
+					while (!finishedName) {
+						XMLEvent eventName = eventReader.nextEvent();
+						// check the start elements for the nested elements inside NAME
+						if (eventName.isStartElement()) {
+							StartElement startElementName = eventName.asStartElement();
+							if (startElementName.getName().getLocalPart().equals(FIRST_NAME)) {
+								eventName = eventReader.nextEvent();
+								fname = eventName.asCharacters().getData();
+							}
+							else if (startElementName.getName().getLocalPart().equals(LAST_NAME)) {
+								eventName = eventReader.nextEvent();
+								lname = eventName.asCharacters().getData();
+							}
+							else {
+								System.err.println("Unrecognized element, ignoring: " + startElement.getName());
+							}
+						}
+						// check the end elements to find where the name element is closed
+						else if (eventName.isEndElement()) {
+							EndElement endElementName = eventName.asEndElement();
+							// when the end element is the name element, create the name return object;
+							if (endElementName.getName().getLocalPart().equals(NAME)) {
+								// Schema makes these required, so they must exist
+								// would be a good practice to check for existence anyways
+					
+								finishedName = true;
+							}
+						}
+						else {
+							// ignore other events, such as character events with line feeds and tabs
+						}
+					}
+				
+			
 				}
 				else if (startElement.getName().getLocalPart().equals(EMAIL)) {
 					email = XMLReaderUtils.readCharacters(eventReader, EMAIL);
@@ -139,7 +133,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 				
 				if (endElement.getName().getLocalPart().equals(PATIENT)) {
 					
-					patient = new PatientImpl(patientID, fname, lname, email, ssn, dob);
+					p = new PatientImpl(patientID, fname, lname, email, ssn, dob);
 					finished = true;
 				}
 			}
@@ -148,12 +142,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 				event = eventReader.nextEvent(); 
 		}
 	}
-		return patient;
-	}
-	
-	private static String readName(XMLEventReader eventReader) {
-		// TODO Auto-generated method stub
-		return null;
+		return p;
 	}
 
 	//Doctor Reader
@@ -183,7 +172,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 			}
 		}
 		
-		DoctorImpl doctor = null;
+		Doctor doctor = null;
 		String fname = null;
 		String lname = null;
 		String email = null;
@@ -194,9 +183,50 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 			XMLEvent event = eventReader.peek();
 			if (event.isStartElement()) {
 				StartElement startElement = event.asStartElement();
+			
+				//Reads Name element
 				if (startElement.getName().getLocalPart().equals(NAME)) {
-					fname = readName(eventReader);
-					lname = readName(eventReader);
+						XMLEvent firstNameEvent = eventReader.nextEvent();
+						if (!firstNameEvent.isStartElement()) {
+							throw new IllegalStateException("Attempting to read a name but not a start element: found event of type " + firstNameEvent.getEventType());
+						}
+						else if (!firstNameEvent.asStartElement().getName().getLocalPart().equals(NAME)) {
+							throw new IllegalStateException("Attempting to read a name at the wrong start element: found " + firstNameEvent.asStartElement().getName());
+						}
+						boolean finishedName = false;
+						while (!finishedName) {
+							XMLEvent eventName = eventReader.nextEvent();
+							// check the start elements for the nested elements inside NAME
+							if (eventName.isStartElement()) {
+								StartElement startElementName = eventName.asStartElement();
+								if (startElementName.getName().getLocalPart().equals(FIRST_NAME)) {
+									eventName = eventReader.nextEvent();
+									fname = eventName.asCharacters().getData();
+								}
+								else if (startElementName.getName().getLocalPart().equals(LAST_NAME)) {
+									eventName = eventReader.nextEvent();
+									lname = eventName.asCharacters().getData();
+								}
+								else {
+									System.err.println("Unrecognized element, ignoring: " + startElement.getName());
+								}
+							}
+							// check the end elements to find where the name element is closed
+							else if (eventName.isEndElement()) {
+								EndElement endElementName = eventName.asEndElement();
+								// when the end element is the name element, create the name return object;
+								if (endElementName.getName().getLocalPart().equals(NAME)) {
+									// Schema makes these required, so they must exist
+									// would be a good practice to check for existence anyways
+						
+									finishedName = true;
+								}
+							}
+							else {
+								// ignore other events, such as character events with line feeds and tabs
+							}
+						}
+					
 				}
 				else if (startElement.getName().getLocalPart().equals(EMAIL)) {
 					email = XMLReaderUtils.readCharacters(eventReader, EMAIL);
@@ -241,9 +271,9 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 		else if (!firstEvent.asStartElement().getName().getLocalPart().equals(VISIT)) {
 			throw new IllegalStateException("Attempting to read a doctor at the wrong start element: found " + firstEvent.asStartElement().getName());
 		}
-		Visit <Integer, Integer> visit = null;
-		int patientId = 0;
-		int doctorId = 0;
+		Visit <Integer, Integer> v = null;
+		int patientID = 0;
+		int doctorID = 0;
 		Date visitDate = null;
 		String dateFormat = "yyyy-MM-dd";
 		
@@ -251,13 +281,13 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 		Iterator<Attribute> attributes = firstEvent.asStartElement().getAttributes();
 		while (attributes.hasNext()) {
 			Attribute attribute = attributes.next();
-			if(attribute.getName().getLocalPart().equals("patientID")) {
-				patientId = Integer.valueOf(attribute.getValue());
+			if(attribute.getName().getLocalPart().equals(PATIENTID)) {
+				patientID = Integer.valueOf(attribute.getValue());
 				}
-			else if (attribute.getName().getLocalPart().equals("doctorID")) {
-				doctorId = Integer.valueOf(attribute.getValue());
+			else if (attribute.getName().getLocalPart().equals(DOCTORID)) {
+				doctorID = Integer.valueOf(attribute.getValue());
 			}
-			else if (attribute.getName().getLocalPart().equals("visitDate")){
+			else if (attribute.getName().getLocalPart().equals(DATE)){
 
 					String dateStr = attribute.getValue();
 					DateFormat df = new SimpleDateFormat(dateFormat);
@@ -279,7 +309,7 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 					event = eventReader.nextEvent();
 					EndElement endElement = event.asEndElement();
 					if (endElement.getName().getLocalPart().equals("visit")){
-						visit = new VisitImpl<Integer,Integer>(patientId, doctorId, visitDate);
+						v = new VisitImpl<Integer,Integer>(patientID, doctorID, visitDate);
 						finished = true;
 					}
 				}
@@ -287,55 +317,63 @@ public class SchedulerXMLReaderUtils extends SchedulerReadWriteUtils {
 					event = eventReader.nextEvent();
 				}
 		}
-		return visit;
+		return v;
 	}
 		
 
 	
 	//Scheduler Data Reader
-	public static SchedulerData readSchedulingXML(String xmlFile) throws XMLStreamException, IOException {
+	public static SchedulerData readSchedulerData(String xmlFile) throws XMLStreamException, IOException {
 		
 		ArrayList<Patient> p = new ArrayList<Patient>();
 		ArrayList<Doctor> d = new ArrayList<Doctor>();
 		ArrayList<Visit<Integer, Integer>> v = new ArrayList<Visit<Integer, Integer>>();
+		SchedulerData scheduler = new SchedulerData(p, d, v);
 		
 		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 		Path xmlFilePath = Paths.get(xmlFile);
 		Reader in = Files.newBufferedReader(xmlFilePath, StandardCharsets.UTF_8);
 		XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
 		
+		//Reads XML Document
 		while(eventReader.hasNext()){
+			//peek into next event to make sure the event happened
 			XMLEvent event = eventReader.peek();
 			if(event.isStartElement()) {
 				StartElement startElement = event.asStartElement();
 				if (startElement.getName().getLocalPart() == (SCHEDULER_DATA)) {
 					event = eventReader.nextEvent();
 				}
+				
 				else if (startElement.getName().getLocalPart() == (PATIENT)) {
-					Patient pp = readPatient(eventReader);
-					p.add(pp);
+					Patient pdata = readPatient(eventReader);
+					p.add(pdata);
 				}
+				
 				else if (startElement.getName().getLocalPart() == (DOCTOR)) {
-					Doctor dd = readDoctor(eventReader);
-					d.add(dd);
-			}
+					Doctor ddata = readDoctor(eventReader);
+					d.add(ddata);
+				}
+				
 				else if (startElement.getName().getLocalPart() == (VISIT)) {
-					Visit<Integer, Integer> vv = readVisit(eventReader);
-					v.add(vv);
+					Visit<Integer, Integer> vdata = readVisit(eventReader);
+				v.add(vdata);
 				}
 				else {
 					System.err.println("Unrecognized element, ignoring: " + startElement.getName());
 					event = eventReader.nextEvent(); // skip this event and read the next
 				}
-			
 		}
 			else {
 				event = eventReader.nextEvent();
 			}	
+			
 	}
 		eventReader.close();
-		SchedulerData schedulerData = new SchedulerData(p,d,v);
-		return schedulerData;
+	
+		return scheduler;
+		
+	}
 }
 
-}
+

@@ -50,8 +50,8 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 		Attribute patientID = eventFactory.createAttribute(PATIENTID, Integer.toString(e.getPatientID()));
 		eventWriter.add(patientID);
 		// creating the SSN attribute
-		Attribute patientSSN = eventFactory.createAttribute(SSN, e.getSsn());
-		eventWriter.add(patientSSN);
+		Attribute ssn = eventFactory.createAttribute(SSN, e.getSsn());
+		eventWriter.add(ssn);
 		eventWriter.add(eventFactory.createIgnorableSpace("\n")); // line feed for readability
 		// now creating the nested elements
 		writeName(eventFactory, eventWriter, e.getFName(), e.getLName(), level);
@@ -74,8 +74,8 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 	    Attribute doctorID = eventFactory.createAttribute(DOCTORID, Integer.toString(e.getDoctorID()));
 	    eventWriter.add(doctorID);
 	    // create the SSN attribute
-	    Attribute doctorSSN = eventFactory.createAttribute(SSN, e.getSsn());
-	    eventWriter.add(doctorSSN);
+	    Attribute ssn = eventFactory.createAttribute(SSN, e.getSsn());
+	    eventWriter.add(ssn);
 		eventWriter.add(eventFactory.createIgnorableSpace("\n")); // line feed for readability
 	    // now create the nested elements
 	    writeName(eventFactory, eventWriter, e.getFName(), e.getLName(), level);
@@ -136,17 +136,17 @@ public final class SchedulerWriterUtils extends SchedulerReadWriteUtils {
 	 		eventWriter.add(eventFactory.createAttribute(SCHEMA_INSTANCE_PREFIX, 
 	 				SCHEMA_INSTANCE_NS, SCHEMA_LOCATION_ATTRNAME, schemaLocationArg));
 	 		// iterate over the list of students and create an element for each
-	  for (Patient e : sdList.p) {
-			writePatient(eventFactory, eventWriter, e, 1); // write the student with one level of indentation
+	  for (Patient pdata : sdList.p) {
+			writePatient(eventFactory, eventWriter, pdata, 1); // write the student with one level of indentation
 		    eventWriter.add(eventFactory.createIgnorableSpace("\n"));
 		}
 	  
-	  for (Doctor e : sdList.d){
-		  writeDoctor(eventFactory, eventWriter, e, 1);
+	  for (Doctor ddata : sdList.d){
+		  writeDoctor(eventFactory, eventWriter, ddata, 1);
 		  eventWriter.add(eventFactory.createIgnorableSpace("\n"));
 	  }
-	  for (Visit<Integer,Integer> e: sdList.v){
-		  writeVisit(eventFactory, eventWriter, e, 1);
+	  for (Visit<Integer,Integer> vdata: sdList.v){
+		  writeVisit(eventFactory, eventWriter, vdata, 1);
 		  eventWriter.add(eventFactory.createIgnorableSpace("\n"));
 	  }
 	  eventWriter.add(eventFactory.createEndDocument());

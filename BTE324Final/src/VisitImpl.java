@@ -50,15 +50,15 @@ public class VisitImpl<V, T> implements Visit<V,T> {
 	}
 	@Override
 	public void setVisitor(V visitor){
-		this.visitor = visitor;
+
 	}
 	@Override
 	public void setHost(T host){
-		this.host=host;
+
 	}
 	@Override
 	public void setVisitDate(Date visitDate){
-		this.visitDate = visitDate;
+
 	}
 	
 	

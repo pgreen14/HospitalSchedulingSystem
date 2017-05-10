@@ -12,7 +12,7 @@ import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
 
-public class XMLReaderUtils {
+public abstract class XMLReaderUtils {
 	
 	public static String readCharacters(XMLEventReader eventReader, String elementName) throws XMLStreamException {
 		XMLEvent firstEvent = eventReader.nextEvent(); // gets the next event
@@ -46,7 +46,7 @@ public class XMLReaderUtils {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		//Calendar date = df.getCalendar();
+
 		
 		return date;
 	}
